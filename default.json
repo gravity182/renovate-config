@@ -12,7 +12,10 @@
 
   "lockFileMaintenance": {
     "enabled": true,
-    "schedule": ["before 6am on monday"]
+    "schedule": ["before 6am on monday"],
+    "automerge": true,
+    "automergeType": "pr",
+    "platformAutomerge": false
   },
 
   "packageRules": [
@@ -27,6 +30,38 @@
     {
       "matchUpdateTypes": ["patch"],
       "labels": ["dependencies", "renovate", "patch"]
+    },
+    {
+      "description": "Automerge GitHub Actions patch and minor updates after CI",
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["patch", "minor"],
+      "automerge": true,
+      "automergeType": "pr",
+      "platformAutomerge": false
+    },
+    {
+      "description": "Automerge Python dev-tool patch and minor updates after CI",
+      "matchPackageNames": [
+        "mypy",
+        "poethepoet",
+        "pytest",
+        "pytest-aiohttp",
+        "pytest-asyncio",
+        "ruff",
+        "types-PyYAML"
+      ],
+      "matchUpdateTypes": ["patch", "minor"],
+      "automerge": true,
+      "automergeType": "pr",
+      "platformAutomerge": false
+    },
+    {
+      "description": "Automerge uv patch updates after CI",
+      "matchPackageNames": ["astral-sh/uv"],
+      "matchUpdateTypes": ["patch"],
+      "automerge": true,
+      "automergeType": "pr",
+      "platformAutomerge": false
     }
   ]
 }
